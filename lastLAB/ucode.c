@@ -320,7 +320,7 @@ int touch(char *filename)
    return syscall(39, filename, 0);
 }
 
-int fixtty(char *tty)
+int settty(char *tty)// the original ucode.c is fixtty
 {
    return syscall(40, tty, 0);
 }
