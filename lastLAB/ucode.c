@@ -300,6 +300,7 @@ int write(int fd, char *buf, int nbytes)
     return syscall(35, fd, buf, nbytes);
 }
 
+//KC's pipe
 int pipe(int *pd)
 {
     return syscall(36, pd, 0);
