@@ -25,6 +25,10 @@ int main(int argc, char *argv[ ])
   {
   	printf("Enter command>");
   	gets(cmdline);
+
+  	if(strcmp(cmdline,"") ==0 )
+  		continue;
+
   	cmdline[strlen(cmdline)] = 0;//kill the '\n'
   	strcpy(commandLine,cmdline);//copy the command line
   	parseCmdHelper(cmdline);//parse the command line
@@ -54,6 +58,7 @@ int main(int argc, char *argv[ ])
 	  				do_IOredirection(i);
 	  				ioNeeded = 1;
   				}
+  				ioNeeded = 1;
   			}
   			if(strcmp(_argv[i],"|") == 0)
   			{
@@ -85,7 +90,7 @@ int main(int argc, char *argv[ ])
 	  		{
 	  			//child
 	  			exec(commandLine);//child execute the command
-	  			exit(0);
+	  			//exit(0);
 	  		}
   		}
   		
@@ -159,21 +164,42 @@ int do_IOredirection(int i)
 		
 		close(1);//close file descriptor 1
 		dup(fd);//duplicate file descriptor
-
+		close(fd);
+		/*
+		//fork a child to do IO
+		pid = fork();
+		if(pid)
+		{
+			//parent
+			wait(&pid);
+			prints("file descriptor opened\n");
+			close(1);//close file descriptor 1
+			int out2 = open("/dev/tty0", O_WRONLY); // //reopen the stdout file descriptor
+			printf("out2=%d\n",out2);
+			printf("fd=%d\n",fd);
+			close(fd);
+		}
+		else
+		{
+			exec(cmd);
+			exec("exit");
+		}
+		*/
+		
 		exec(cmd);//execute the command: using printf() to print stuff to the outfile
-
-		prints("file descriptor opened\n");
+		//prints("file descriptor opened\n");
 		close(1);//close file descriptor 1
 		int out2 = open("/dev/tty0", O_WRONLY); // //reopen the stdout file descriptor
 		printf("out2=%d\n",out2);
-		printf("fd=%d\n",fd);
-		close(fd);
+		//printf("fd=%d\n",fd);
+		//close(fd);
+		
 		
 	}
 	else
 	{
 		prints("No output file specified\n");
-		return -1;
+		return fd;
 	}
 	return 0;
 }

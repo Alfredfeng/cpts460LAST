@@ -22,5 +22,6 @@ int main(int argc, char *argv[ ])
 		 printf("%s",mybuf);//not good
 		//spit out chars from mybuf[] but handle '\n' properly
 	}
+    prints("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 	close(fd);//close the file descriptor
 }
