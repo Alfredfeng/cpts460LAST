@@ -14,21 +14,25 @@ int main(int argc, char *argv[ ])
 		{
 			if(strstr(line,argv[1]))
 			{
-				printf("%s",line);
+				prints(line);
 			}
 		}
 	}
-	int fd = open(argv[2],O_RDONLY);//open for read
-	while( n = readline(fd, line))
+	else
 	{
-		 if(strstr(line,argv[1]))
-		 {
-		 	printf("%s",line);
-		 }
-		 
+		int fd = open(argv[2],O_RDONLY);//open for read
+		while( n = readline(fd, line))
+		{
+			 if(strstr(line,argv[1]))
+			 {
+			 	printf("%s",line);
+			 }
+			 
+		}
+	    prints("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+		close(fd);//close the file descriptor
 	}
-    prints("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
-	close(fd);//close the file descriptor
+	
 }
 
 int readline(int fd, char *buf)
